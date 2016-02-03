@@ -21,7 +21,7 @@
 @property (nonatomic, assign) NSTimeInterval  lastModifiedTime;
 @property (nonatomic, assign) NSTimeInterval creationTime;
 @property (nonatomic, strong) NSString*  method;
-@property (nonatomic, strong) NSInteger  userAction;
+@property (nonatomic, assign) NSInteger  userAction;
 @property  (nonatomic, strong) NSString* icalString;
 
 @end
