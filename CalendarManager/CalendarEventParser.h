@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CalendarEvent.h"
 
 @interface CalendarEventParser : NSObject
+
++(void)parseCalendar:(NSString *)icalEventString :(void (^)(CalendarEvent *))successBlock withErrorBlock:(void (^)(NSDictionary*))errorBlock;
 
 @end
