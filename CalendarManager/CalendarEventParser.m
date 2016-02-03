@@ -14,12 +14,16 @@
 
 +(void)parseCalendar:(NSString *)icalEventString :(void (^)(CalendarEvent *))successBlock withErrorBlock:(void (^)(NSDictionary*))errorBlock
 {
-    CalendarEvent *event =  [self getCalendarEventComponents:icalEventString];
-    if(event) {
-        successBlock(event);
-    }else {
+    if(icalEventString){
+        CalendarEvent *event =  [self getCalendarEventComponents:icalEventString];
+        if(event) {
+            successBlock(event);
+        }else {
+            errorBlock(nil);
+        };
+    }else{
         errorBlock(nil);
-    };
+    }
 }
 
 +(CalendarEvent *)getCalendarEventComponents:(NSString *)icsString

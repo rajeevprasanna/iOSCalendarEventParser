@@ -166,7 +166,7 @@
     });
     
     NSString *timezoneName = [timeZoneMap valueForKey:timezoneId];
-    return timezoneName.length != 0 ? [NSTimeZone timeZoneWithName:timezoneName] : nil;
+    return timezoneName.length != 0 ? [NSTimeZone timeZoneWithName:timezoneName] : [NSTimeZone timeZoneForSecondsFromGMT:0];
 }
 
 @end
