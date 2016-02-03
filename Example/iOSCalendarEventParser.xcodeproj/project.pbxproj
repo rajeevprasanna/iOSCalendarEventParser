@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02CE49A11C61FD3B00A2893C /* CalendarEventParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CE49A01C61FD3B00A2893C /* CalendarEventParser.m */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -15,8 +16,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2652851B1D2A3FE1DEC1BAC5 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		30AAC1F3AAB018B6AE11CEF5 /* iOSCalendarEventParser.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = iOSCalendarEventParser.podspec; path = ../iOSCalendarEventParser.podspec; sourceTree = "<group>"; };
+		02CE499F1C61FD3B00A2893C /* CalendarEventParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarEventParser.h; sourceTree = "<group>"; };
+		02CE49A01C61FD3B00A2893C /* CalendarEventParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarEventParser.m; sourceTree = "<group>"; };
+		2652851B1D2A3FE1DEC1BAC5 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		30AAC1F3AAB018B6AE11CEF5 /* iOSCalendarEventParser.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = iOSCalendarEventParser.podspec; path = ../iOSCalendarEventParser.podspec; sourceTree = "<group>"; };
 		4C0E30E2FD4823767EC65860 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -43,9 +46,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02CE499E1C61FD1E00A2893C /* CalendarManager */ = {
+			isa = PBXGroup;
+			children = (
+				02CE499F1C61FD3B00A2893C /* CalendarEventParser.h */,
+				02CE49A01C61FD3B00A2893C /* CalendarEventParser.m */,
+			);
+			name = CalendarManager;
+			path = ../CalendarManager;
+			sourceTree = "<group>";
+		};
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
+				02CE499E1C61FD1E00A2893C /* CalendarManager */,
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F5B5195388D20070C39A /* Tests */,
 				6003F58C195388D20070C39A /* Frameworks */,
@@ -136,7 +150,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6003F585195388D10070C39A /* Build configuration list for PBXProject "PROJECT" */;
+			buildConfigurationList = 6003F585195388D10070C39A /* Build configuration list for PBXProject "iOSCalendarEventParser" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -171,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F5BC195388D20070C39A /* Tests.m in Sources */,
+				02CE49A11C61FD3B00A2893C /* CalendarEventParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,7 +319,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6003F585195388D10070C39A /* Build configuration list for PBXProject "PROJECT" */ = {
+		6003F585195388D10070C39A /* Build configuration list for PBXProject "iOSCalendarEventParser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6003F5BD195388D20070C39A /* Debug */,
