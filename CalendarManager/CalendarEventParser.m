@@ -142,7 +142,7 @@
         }else if(summaryComponenets.count == 1){
             summaryString = summaryComponenets[0];
         }
-        summaryString = [[[summaryString stringByReplacingOccurrencesOfString:@"SUMMARY:" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+        summaryString = [[[[summaryString stringByReplacingOccurrencesOfString:@"SUMMARY:" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""] stringByReplacingOccurrencesOfString:@"\\," withString:@","];
         
         
         // Extract event description
@@ -173,7 +173,7 @@
         eventScanner = [NSScanner scannerWithString:event];
         [eventScanner scanUpToString:@"LOCATION:" intoString:nil];
         [eventScanner scanUpToString:@"\n" intoString:&locationString];
-        locationString = [[[locationString stringByReplacingOccurrencesOfString:@"LOCATION:" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+        locationString = [[[[locationString stringByReplacingOccurrencesOfString:@"LOCATION:" withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\r" withString:@""] stringByReplacingOccurrencesOfString:@"\\," withString:@","];
     }
     
     
@@ -229,18 +229,6 @@
                 }
             }
         }
-
-    } else if(!timezoneIDString && ctzoneLine.length > 0){
-        NSArray *components = [ctzoneLine componentsSeparatedByString:@"&"];
-        for(NSString *c in components){
-            if([c rangeOfString:@"ctz="].location != NSNotFound)
-            {
-                NSArray *components2 = [c componentsSeparatedByString:@"="];
-                if(components2.count == 2){
-                    timezoneIDString = components2[1];
-                }
-            }
-        }
     }
     
     
@@ -252,19 +240,21 @@
         }
     }
     
-    NSTimeZone *sourceTimeZone = [CalendarEventTimeZones getTimezoneById:timezoneIDString];
+    timezoneIDString = [timezoneIDString stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+    NSString *sourceTimeZone = [CalendarEventTimeZones getTimezoneById:timezoneIDString];
+    if(!sourceTimeZone){
+        sourceTimeZone = timezoneIDString;
+    }
     NSTimeInterval creationTimeMillis = 0;
     NSTimeInterval startDateMillis = 0;
     NSTimeInterval endDateMillis = 0;
     NSTimeInterval lastModifiedTimeMillis = 0;
-    if(sourceTimeZone){
-        NSDateFormatter *dateFormatter = [self getCalDateFormatter];
-        [dateFormatter setTimeZone:sourceTimeZone];
-
-        NSDate *creationDate = [dateFormatter dateFromString:createdDateTimeString];
-        NSDate *calStartDate = [dateFormatter dateFromString:startDateTimeString];
-        NSDate *calEndDate = [dateFormatter dateFromString:endDateTimeString];
-        NSDate *modifiedDate = [dateFormatter dateFromString:lastModifiedDateTimeString];
+    if(startDateTimeString){
+        NSTimeZone *timezone = ([NSTimeZone timeZoneWithName:sourceTimeZone] ? [NSTimeZone timeZoneWithName:sourceTimeZone] : [NSTimeZone timeZoneForSecondsFromGMT:0]);
+        NSDate *creationDate = [self dateFromStringWithTime:createdDateTimeString withTimezone:timezone];
+        NSDate *calStartDate = [self dateFromStringWithTime:startDateTimeString withTimezone:timezone];
+        NSDate *calEndDate = [self dateFromStringWithTime:endDateTimeString withTimezone:timezone];
+        NSDate *modifiedDate = [self dateFromStringWithTime:lastModifiedDateTimeString withTimezone:timezone];
 
         creationTimeMillis = [creationDate timeIntervalSince1970];
         startDateMillis = [calStartDate timeIntervalSince1970];
@@ -298,6 +288,20 @@
         action = CALENDAR_EVENT_STATUS_CANCELLED;
     }
     
+    
+    if(!timezoneIDString && ctzoneLine.length > 0){
+        NSArray *components = [ctzoneLine componentsSeparatedByString:@"&"];
+        for(NSString *c in components){
+            if([c rangeOfString:@"ctz="].location != NSNotFound)
+            {
+                NSArray *components2 = [c componentsSeparatedByString:@"="];
+                if(components2.count == 2){
+                    timezoneIDString = components2[1];
+                }
+            }
+        }
+    }
+    
     CalendarEvent *calendarEvent = [CalendarEvent new];
     calendarEvent.uid = eventUniqueIDString;
     calendarEvent.organiserMailId = organiserEmailId;
@@ -316,14 +320,20 @@
     return calendarEvent;
 }
 
-static NSDateFormatter *icalDateFormatter;
-+(NSDateFormatter *)getCalDateFormatter
-{
-    if(!icalDateFormatter){
-        icalDateFormatter = [[NSDateFormatter alloc] init];
-        [icalDateFormatter setDateFormat:@"yyyyMMdd'T'HHmmss"];
-    }
-    return icalDateFormatter;
+
++(NSDate *)dateFromStringWithTime:(NSString *)dateString withTimezone:(NSTimeZone *)timezone {
+    
+    dateString = [dateString stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+    dateString = [dateString stringByReplacingOccurrencesOfString:@"Z" withString:@""];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:timezone];
+    [dateFormatter setDateFormat:@"yyyyMMdd HHmmss"];
+    
+    NSDate *date = [dateFormatter dateFromString:dateString];
+    return date;
 }
+
+
 
 @end

@@ -10,7 +10,7 @@
 
 @implementation CalendarEventTimeZones
 
-+(NSTimeZone *)getTimezoneById:(NSString *)timezoneId
++(NSString *)getTimezoneById:(NSString *)timezoneId
 {
     static NSDictionary *timeZoneMap = nil;
     static dispatch_once_t onceToken;
@@ -165,8 +165,8 @@
                       };
     });
     
-    NSString *timezoneName = [timeZoneMap valueForKey:timezoneId];
-    return timezoneName.length != 0 ? [NSTimeZone timeZoneWithName:timezoneName] : [NSTimeZone timeZoneForSecondsFromGMT:0];
+    NSString *timezoneName = [timeZoneMap valueForKey:timezoneId]; 
+    return timezoneName;
 }
 
 @end

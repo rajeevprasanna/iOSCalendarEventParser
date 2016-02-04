@@ -10,6 +10,6 @@
 
 @interface CalendarEventTimeZones : NSObject
 
-+(NSTimeZone *)getTimezoneById:(NSString *)timezoneId;
++(NSString *)getTimezoneById:(NSString *)timezoneId;
 
 @end
