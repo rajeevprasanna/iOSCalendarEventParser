@@ -18,6 +18,7 @@
         timeZoneMap = @{
                       @"Pacific Standard Time" : @"America/Los_Angeles",
                       @"Chennai, Kolkata, Mumbai, New Delhi" : @"Asia/Kolkata",
+                      @"India Standard Time": @"Asia/Kolkata",
                       @"International Date Line West" : @"Pacific/Midway",
                       @"Midway Island" : @"Pacific/Midway",
                       @"American Samoa" : @"Pacific/Pago_Pago",
