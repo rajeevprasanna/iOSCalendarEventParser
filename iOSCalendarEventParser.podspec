@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 s.platform = :ios
 s.name         = 'iOSCalendarEventParser'
-s.version      = '0.0.4'
+s.version      = '0.0.5'
 s.license      = { :type => 'MIT' }
 s.homepage     = 'https://github.com/rajeevprasanna/iOSCalendarEventParser'
 s.authors      = { "rajeevprasanna" => "rajeevprasanna@gmail.com" }
